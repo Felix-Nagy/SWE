@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodeSet  version="1.1">
+	<view uin="V1hexuhi59gehsz-onuhsx">
+		<property name="$metaclass" value="ClassDiagram20"/>
+		<property name="$name" value="Class Diagram1"/>
+		<reference referencedUin="jdt:e_class:src:src.application.Fassade">
+			<property name="bounds" value="495,609,153,167"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:src.application.Fassade:lnkUseCaseController1">
+				<property name="sourceAnchor" value="653,780"/>
+				<property name="targetAnchor" value="840,780"/>
+			</reference>
+			<reference referencedUin="jdt:l_gnt:src:src.application.Fassade:Subject">
+				<property name="sourceAnchor" value="653,629"/>
+				<property name="targetAnchor" value="720,629"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:src.application.Fassade:lnkUseCaseController2">
+				<property name="sourceAnchor" value="499,729"/>
+				<property name="targetAnchor" value="335,800"/>
+				<property name="location_set_by_user" value="true"/>
+			</reference>
+			<reference referencedUin="jdt:l_impl:src:src.application.Fassade:IModel">
+				<property name="sourceAnchor" value="499,636"/>
+				<property name="targetAnchor" value="354,522"/>
+				<property name="location_set_by_user" value="true"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:src.application.Fassade:currentState">
+				<property name="sourceAnchor" value="500,659"/>
+				<property name="targetAnchor" value="240,659"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:src.application.State">
+			<property name="bounds" value="95,578,140,122"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:src.application.Subject">
+			<property name="bounds" value="715,518,195,122"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<reference referencedUin="jdt:l_impl:src:src.application.Subject:ISubject">
+				<property name="sourceAnchor" value="719,538"/>
+				<property name="targetAnchor" value="616,489"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:src.application.Subject:observers">
+				<property name="sourceAnchor" value="803,523"/>
+				<property name="targetAnchor" value="803,480"/>
+				<reference referencedUin="label:supplierCardinality:jdt:l_ast:src:src.application.Subject:observers">
+					<property name="bounds" value="806,481,21,19"/>
+				</reference>
+				<reference referencedUin="label:clientCardinality:jdt:l_ast:src:src.application.Subject:observers">
+					<property name="bounds" value="916,547,10,19"/>
+				</reference>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:src.application.UseCaseController1">
+			<property name="bounds" value="835,775,281,138"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<property name="bounds_setted_by_user" value="true"/>
+			<property name="collapsedCompartments" value=""/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:src.application.UseCaseController2">
+			<property name="bounds" value="52,795,281,118"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<property name="bounds_setted_by_user" value="true"/>
+			<property name="collapsedCompartments" value=""/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:src.application.IModel">
+			<property name="bounds" value="195,395,154,124"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<reference referencedUin="jdt:l_gnt:src:src.application.IModel:ISubject">
+				<property name="sourceAnchor" value="354,419"/>
+				<property name="targetAnchor" value="460,419"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:src.application.IObserver">
+			<property name="bounds" value="715,395,166,80"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:src.application.ISubject">
+			<property name="bounds" value="455,395,156,109"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:src.userInterface.ObserverConsole">
+			<property name="bounds" value="755,-5,281,247"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<property name="bounds_setted_by_user" value="true"/>
+			<property name="collapsedCompartments" value=""/>
+			<reference referencedUin="jdt:l_ast:src:src.userInterface.ObserverConsole:model">
+				<property name="sourceAnchor" value="760,198"/>
+				<property name="targetAnchor" value="354,419"/>
+				<property name="location_set_by_user" value="true"/>
+			</reference>
+			<reference referencedUin="jdt:l_impl:src:src.userInterface.ObserverConsole:IObserver">
+				<property name="sourceAnchor" value="783,247"/>
+				<property name="targetAnchor" value="783,400"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:src.userInterface.ObserverGUI">
+			<property name="bounds" value="75,-5,200,317"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<property name="collapsedCompartments" value=""/>
+			<reference referencedUin="jdt:l_ast:src:src.userInterface.ObserverGUI:model">
+				<property name="sourceAnchor" value="240,317"/>
+				<property name="targetAnchor" value="240,400"/>
+			</reference>
+			<reference referencedUin="jdt:l_impl:src:src.userInterface.ObserverGUI:IObserver">
+				<property name="sourceAnchor" value="280,201"/>
+				<property name="targetAnchor" value="721,400"/>
+				<property name="location_set_by_user" value="true"/>
+			</reference>
+		</reference>
+		<reference referencedUin="design:node:::1g64yi59hoc9gg2xqrz">
+			<property name="bounds" value="15,415,141,104"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<property name="bounds_setted_by_user" value="true"/>
+			<reference referencedUin="design:link:::ieje0ri59hos6sgjczg:1g64yi59hoc9gg2xqrz">
+				<property name="sourceAnchor" value="161,472"/>
+				<property name="targetAnchor" value="200,472"/>
+				<property name="bendpoints" value=""/>
+			</reference>
+		</reference>
+	</view>
+</nodeSet>

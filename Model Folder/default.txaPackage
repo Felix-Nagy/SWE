@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodeSet  version="1.1">
+	<node uin="1g64yi59hoc9gg2xqrz">
+		<property name="$metaclass" value="Note"/>
+		<property name="$note_text" value="Das Interface IModel buendelt alle Systemoperationen und Daten getter-Methoden als Interface"/>
+		<link uin="ieje0ri59hos6sgjczg">
+			<property name="$metaclass" value="Note Link"/>
+			<participant referencedUin="design:node:::1g64yi59hoc9gg2xqrz" role="Client"></participant>
+			<participant referencedUin="jdt:e_class:src:src.application.IModel" role="Supplier"></participant>
+		</link>
+	</node>
+</nodeSet>
