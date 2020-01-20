@@ -58,7 +58,8 @@ public class Fassade extends Subject implements IModel  {
 
 	@Override
 	public void antworten() {
-
+		this.currentState.setState(State.State_PLAYER_ORDER);
+		notifyObservers(State.State_PLAYER_ORDER);
 	}
 
 	@Override
@@ -66,6 +67,15 @@ public class Fassade extends Subject implements IModel  {
 
 		}
 
+	@Override
+	public void toCategoryChooser() {
+		this.currentState.setState(State.State_CHOOSE_CATEGORY);
+		notifyObservers(State.State_CHOOSE_CATEGORY);
+	}
+	public void toShowCrossword(){
+		this.currentState.setState(State.State_SHOW_CROSSWORD);
+		notifyObservers(State.State_SHOW_CROSSWORD);
+	}
 
 	@Override
 	public void kategorieWaehlen() {

@@ -17,6 +17,10 @@ public interface IModel extends ISubject{
 
 	public void antworten(String antwort);
 
+	public void toCategoryChooser();
+
+	public void toShowCrossword();
+
 	public void kategorieWaehlen();
 
 	public ArrayList<Player> getPlayers();
