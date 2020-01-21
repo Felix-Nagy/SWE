@@ -24,5 +24,25 @@ public interface IModel extends ISubject{
 	public void kategorieWaehlen();
 
 	public ArrayList<Player> getPlayers();
+
+	public String getNextQuestion();
+
+	public void setPlayersOrder();
+
+	public void validateAnswer(String answer);
+
+	public Player getActivePlayer();
+
+	public void setActivePlayer(Player player);
+
+	public int getCurrentQuestionIndex();
+
+	public int getMaxQuestion();
+
+	public boolean hasNextPlayer();
+
+	public void nextPlayer();
+
+	public boolean isItNextPlayersTurn();
 	
 }

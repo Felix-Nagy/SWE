@@ -1,21 +1,23 @@
 package src.application;
 
 
+import src.application.name_eintragen.NameEintragenManager;
+import src.application.schnellquiz.SchnellQuizManager;
 import src.model.Player;
 
 import java.util.ArrayList;
 
 public class Fassade extends Subject implements IModel  {
 	
-	private UseCaseController1 lnkUseCaseController1;
-	private UseCaseController2 lnkUseCaseController2;
+	private NameEintragenManager lnkNameEintragenManager;
+	private SchnellQuizManager lnkSchnellQuizManager;
 	State currentState;
 	private ArrayList<Player> players = new ArrayList<>();
 	
 	
 	public Fassade(){
-		this.lnkUseCaseController1 = new UseCaseController1();
-		this.lnkUseCaseController2 = new UseCaseController2();
+		this.lnkNameEintragenManager = new NameEintragenManager(this.players);
+		this.lnkSchnellQuizManager = new SchnellQuizManager(this.players);
 		this.currentState = new State();
 	}
 
@@ -28,34 +30,16 @@ public class Fassade extends Subject implements IModel  {
 
 	@Override
 	public boolean nameEintragen(String... names) {
-		boolean success;
-		int countValidNames = 0;
-		for (String name : names) {
-			if (name.length() > 0) {
-				countValidNames++;
-			}
-		}
-		if (countValidNames >= 2) {
-			addPlayers(names);
-			success = true;
+		if (this.lnkNameEintragenManager.validatePlayers(names)) {
+			this.lnkNameEintragenManager.addPlayers(names);
 			this.currentState.setState(State.State_ANSWER);
 			notifyObservers(State.State_ANSWER);
+			return true;
 		}
 		else {
-			success = false;
-		}
-
-		return success;
-	}
-
-	private void addPlayers(String... names) {
-		for (String name : names) {
-			if (name.length() > 0) {
-				this.players.add(new Player(name));
-			}
+			return false;
 		}
 	}
-
 	@Override
 	public void antworten() {
 		this.currentState.setState(State.State_PLAYER_ORDER);
@@ -85,5 +69,55 @@ public class Fassade extends Subject implements IModel  {
 	@Override
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+
+	@Override
+	public String getNextQuestion() {
+		return this.lnkSchnellQuizManager.getNextQuestion();
+	}
+
+	@Override
+	public void setPlayersOrder() {
+		this.lnkSchnellQuizManager.setPlayersOrderByPoints();
+	}
+
+	@Override
+	public void validateAnswer(String answer) {
+		this.lnkSchnellQuizManager.validateAnswer(answer);
+	}
+
+	@Override
+	public Player getActivePlayer() {
+		return this.lnkSchnellQuizManager.getActivePlayer();
+	}
+
+	@Override
+	public void setActivePlayer(Player player) {
+		this.lnkSchnellQuizManager.setActivePlayer(player);
+	}
+
+	@Override
+	public int getCurrentQuestionIndex() {
+		return this.lnkSchnellQuizManager.getCurrQuestionIndex();
+	}
+
+	@Override
+	public int getMaxQuestion() {
+		return SchnellQuizManager.MAX_QUESTIONS;
+	}
+
+	@Override
+	public boolean hasNextPlayer() {
+		return this.lnkSchnellQuizManager.hasNextPlayer();
+	}
+
+	@Override
+	public void nextPlayer() {
+		this.lnkSchnellQuizManager.nextPlayer();
+	}
+
+	@Override
+	public boolean isItNextPlayersTurn() {
+		return this.lnkSchnellQuizManager.isItNextPlayersTurn();
 	}
 }

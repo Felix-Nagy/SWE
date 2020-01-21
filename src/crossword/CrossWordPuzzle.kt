@@ -20,7 +20,7 @@ class WordPosition(var x: Int, var y: Int, var dir: Direction) {
     }
 }
 
-public class QuestionAnswerPair(val question: String, val answer: String) {
+class QuestionAnswerPair(val question: String, val answer: String) {
     override fun toString(): String {
         return "($question? $answer)"
     }
@@ -36,14 +36,10 @@ fun abs(x: Int): Int = if (x < 0) -x else x
 
 /** the boards dimensions. the board is square so only one needed */
 private const val BOARD_DIMENSION = 8
-private val QUESTIONS = arrayOf("frage1", "frage2", "frage3", "frage4", "frage5", "frage6")
-private val WORDS = arrayOf("hallo", "auto", "krass", "salz", "flasche", "felix")
-/** all questions ([QUESTIONS]) and answers ([WORDS]) zipped into one */
-private val QUESTION_ANSWER_PAIRS = Array(WORDS.size) { i -> QuestionAnswerPair(QUESTIONS[i], WORDS[i]) } //kinda like zip, but with a custom class
 /** the character used to signify that an entry in the board array is empty, looks like this: >> · << */
 private const val EMPTY_FIELD = '\u00B7'
 
-class CrossWordPuzzle(val questionAnswerPairs: Array<QuestionAnswerPair>) {
+class CrossWordPuzzle(private val questionAnswerPairs: Array<QuestionAnswerPair>) {
     /**
      * A two-dimensional grid representing the crossword puzzle.
      * Its size is [BOARD_DIMENSION]x[BOARD_DIMENSION] and is initially filled with [EMPTY_FIELD].
@@ -54,7 +50,7 @@ class CrossWordPuzzle(val questionAnswerPairs: Array<QuestionAnswerPair>) {
      * all entries that are added to the [board] are kept track of here,
      * including the word, its word position and direction as well as its corresponding question.
      */
-    public val boardEntries: ArrayList<BoardEntry> = ArrayList()
+    private val boardEntries: ArrayList<BoardEntry> = ArrayList()
 
     init {
         genBoard()
@@ -181,7 +177,7 @@ class CrossWordPuzzle(val questionAnswerPairs: Array<QuestionAnswerPair>) {
     }
 
     fun questionBoardToString(): String {
-        var output: String = ""
+        var output = ""
         val questionPosBoard: Array<CharArray> = Array(BOARD_DIMENSION) { CharArray(BOARD_DIMENSION) { EMPTY_FIELD } }
         for ((index, entry) in this.boardEntries.iterator().withIndex()) {
             val (x, y) = entry.wordPos

@@ -126,8 +126,6 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
         JLabel timerLabel = new JLabel();
         JLabel fragenCount = new JLabel();
 
-        Iterator<Player> playerIterator = this.model.getPlayers().iterator();
-
         getContentPane().setLayout(this.mainLayout);
         this.mainLayout.setAutoCreateGaps(true);
         this.mainLayout.setAutoCreateContainerGaps(true);
@@ -163,44 +161,44 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
 
         sendButton.addActionListener(evt -> {
             checkAnswer(questionAnswerInputField.getText());
-            nextQuestion(questionLabel, fragenCount, playerNameLabel, questionAnswerInputField, playerIterator);
+            nextQuestion(questionLabel, fragenCount, playerNameLabel, questionAnswerInputField);
         });
 
         this.timer = new Timer(1000, evt -> {
             this.timeLeft--;
             if (this.timeLeft == 0) {
-                this.currQuestion = this.questionsAndAnswers.getNextQuestion();
-                questionLabel.setText(this.currQuestion.getQuestion());
-                nextPlayer(playerIterator, playerNameLabel, fragenCount);
+                String nextQuestion = this.model.getNextQuestion();
+                questionLabel.setText(nextQuestion);
+                nextPlayer(playerNameLabel, fragenCount);
             }
             timerLabel.setText(String.valueOf(this.timeLeft));
         });
 
         this.timer.start();
-        nextQuestion(questionLabel, fragenCount, playerNameLabel, questionAnswerInputField, playerIterator);
-        nextPlayer(playerIterator, playerNameLabel, fragenCount);
+        nextPlayer(playerNameLabel, fragenCount);
+        nextQuestion(questionLabel, fragenCount, playerNameLabel, questionAnswerInputField);
     }
 
     private void nextQuestion(JLabel questionLabel, JLabel fragenCount, JLabel playerNameLabel,
-                              JTextField questionAnswerInputField, Iterator<Player> playerIterator) {
-        this.currQuestion = this.questionsAndAnswers.getNextQuestion();
-        questionLabel.setText(this.currQuestion.getQuestion());
-        questionAnswerInputField.setText("");
-
-        this.currQuestionIndex++;
-        if (this.currQuestionIndex > MAX_QUESTIONS) {
-            nextPlayer(playerIterator, playerNameLabel, fragenCount);
+                              JTextField questionAnswerInputField) {
+        if (this.model.isItNextPlayersTurn()) {
+            nextPlayer(playerNameLabel, fragenCount);
         }
-        fragenCount.setText(String.format("%d/%d", this.currQuestionIndex, MAX_QUESTIONS));
+        String nextQuestion = this.model.getNextQuestion();
+        questionLabel.setText(nextQuestion);
+        questionAnswerInputField.setText("");
+        fragenCount.setText(String.format("%d/%d", this.model.getCurrentQuestionIndex(), this.model.getMaxQuestion()));
+        playerNameLabel.setText(this.model.getActivePlayer().getName());
     }
 
-    private void nextPlayer(Iterator<Player> playerIterator, JLabel playerNameLabel, JLabel fragenCount) {
-	    if (playerIterator.hasNext()) {
-	        this.currQuestionIndex = 1;
-            fragenCount.setText(String.format("%d/%d", this.currQuestionIndex, MAX_QUESTIONS));
-            this.activePlayer = playerIterator.next();
-	        playerNameLabel.setText(this.activePlayer.getName());
-	        this.timeLeft = TIME_BASE;
+    private void nextPlayer(JLabel playerNameLabel, JLabel fragenCount) {
+        System.out.println("next player");
+        System.out.println(this.model.hasNextPlayer());
+        if (this.model.hasNextPlayer()) {
+	        this.model.nextPlayer();
+            fragenCount.setText(String.format("%d/%d", this.model.getCurrentQuestionIndex(), this.model.getMaxQuestion()));
+	        playerNameLabel.setText(this.model.getActivePlayer().getName());
+            this.timeLeft = TIME_BASE;
         }
 	    else {
 	        this.timer.stop();
@@ -215,13 +213,7 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
     }
 
     private void checkAnswer(String answer) {
-	    if (this.currQuestion.getAnswer().equalsIgnoreCase(answer)) {
-            System.out.println("ok");
-            this.activePlayer.addPoints(1);
-        }
-	    else {
-            System.out.println("omg you suck");
-        }
+	    this.model.validateAnswer(answer);
     }
 
     // more questions answered -> lower index -> start faster
@@ -281,7 +273,7 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
 
         Iterator<Player> playerIterator = this.model.getPlayers().iterator();
         Player firstPlayer = playerIterator.next();
-        this.activePlayer = firstPlayer;
+        this.activePlayerChooseCategory = firstPlayer;
         JLabel  playerNameLabel = new JLabel(firstPlayer.getName());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -322,12 +314,12 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
     }
 
     private void chooseCategory(Category category, Iterator<Player> playerIterator, JButton button, JLabel playerNameLabel) {
-        System.out.printf("%s chose category %s\n", this.activePlayer.getName(), category);
-        this.activePlayer.setCategory(category);
+        System.out.printf("%s chose category %s\n", this.activePlayerChooseCategory.getName(), category);
+        this.activePlayerChooseCategory.setCategory(category);
         button.setEnabled(false);
         if (playerIterator.hasNext()) {
-            this.activePlayer = playerIterator.next();
-            playerNameLabel.setText(this.activePlayer.getName());
+            this.activePlayerChooseCategory = playerIterator.next();
+            playerNameLabel.setText(this.activePlayerChooseCategory.getName());
 
         }
         else {
@@ -420,15 +412,12 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
 
     private static final int TIME_BASE = 30;
     private int timeLeft = TIME_BASE;
-    private int currQuestionIndex = 0;
-    private QuestionsAndAnswers questionsAndAnswers = new QuestionsAndAnswers();
-    private final static int MAX_QUESTIONS = 10;
-    private Player activePlayer;
-    private crossword.QuestionAnswerPair currQuestion;
 
     private CrossWordPuzzle a = new CrossWordPuzzle(QuestionsAndAnswers.qa.toArray(new crossword.QuestionAnswerPair[0]));
 
     private Timer timer;
+
+    private Player activePlayerChooseCategory;
 
 }
 
