@@ -339,18 +339,17 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
 
 
     private void drawMainMenu() {
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        JButton startButton = new JButton();
+        JButton exitButton = new JButton();
+        JLabel welcomeLabel = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Starten");
-        jButton1.addActionListener(evt -> this.model.starten());
-        jButton2.setText("Beenden");
-        jButton2.addActionListener(evt -> System.exit(0x0));
-        jLabel1.setText("Willkommen");
+        startButton.setText("Starten");
+        startButton.addActionListener(evt -> this.model.starten());
+        exitButton.setText("Beenden");
+        exitButton.addActionListener(evt -> System.exit(0x0));
+        welcomeLabel.setText("Willkommen");
 
 
         getContentPane().setLayout(this.mainLayout);
@@ -360,16 +359,16 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
 
                 this.mainLayout.createSequentialGroup().addGap(200)
                 .addGroup(this.mainLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addComponent(jLabel1).addGap(200)
-                        .addComponent(jButton1).addGap(200)
-                        .addComponent(jButton2)).addGap(200)
+                        .addComponent(welcomeLabel).addGap(200)
+                        .addComponent(startButton).addGap(200)
+                        .addComponent(exitButton)).addGap(200)
 
         );
         this.mainLayout.setVerticalGroup(
                 this.mainLayout.createSequentialGroup()
-                        .addComponent(jLabel1).addGap(20)
-                        .addComponent(jButton1).addGap(20)
-                        .addComponent(jButton2).addGap(100)
+                        .addComponent(welcomeLabel).addGap(20)
+                        .addComponent(startButton).addGap(20)
+                        .addComponent(exitButton).addGap(100)
 
 
         );
@@ -409,14 +408,6 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
         pack();
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-	    System.out.println("pressed");
-        }
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("pressed");
-    }
-
     private void afterNamesInput(String name1, String name2, String name3, String name4) {
 	    boolean success = this.model.nameEintragen(name1, name2, name3, name4); // state change
         System.out.println(success);
@@ -426,11 +417,6 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
             System.out.println(p.getName());
         }
     }
-
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
 
     private static final int TIME_BASE = 30;
     private int timeLeft = TIME_BASE;
