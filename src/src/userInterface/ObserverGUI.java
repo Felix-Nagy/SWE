@@ -166,7 +166,7 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
             nextQuestion(questionLabel, fragenCount, playerNameLabel, questionAnswerInputField, playerIterator);
         });
 
-        Timer timer = new Timer(1000, evt -> {
+        this.timer = new Timer(1000, evt -> {
             this.timeLeft--;
             if (this.timeLeft == 0) {
                 this.currQuestion = this.questionsAndAnswers.getNextQuestion();
@@ -176,7 +176,7 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
             timerLabel.setText(String.valueOf(this.timeLeft));
         });
 
-        timer.start();
+        this.timer.start();
         nextQuestion(questionLabel, fragenCount, playerNameLabel, questionAnswerInputField, playerIterator);
         nextPlayer(playerIterator, playerNameLabel, fragenCount);
     }
@@ -203,6 +203,7 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
 	        this.timeLeft = TIME_BASE;
         }
 	    else {
+	        this.timer.stop();
 	        endSchnellQuiz();
         }
     }
@@ -440,6 +441,8 @@ public class ObserverGUI extends javax.swing.JFrame implements IObserver {
     private crossword.QuestionAnswerPair currQuestion;
 
     private CrossWordPuzzle a = new CrossWordPuzzle(QuestionsAndAnswers.qa.toArray(new crossword.QuestionAnswerPair[0]));
+
+    private Timer timer;
 
 }
 
